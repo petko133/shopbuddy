@@ -1,3 +1,9 @@
+html,
+body {
+  overflow-x: hidden;
+  background-color: #f7f7f7;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +16,97 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#wrapper .form-floating > .form-select {
+  border: 0;
+}
+
+.carousel-indicators {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .navbar-expand-lg .navbar-nav .dropdown-menu {
+    top: 10px;
+  }
+  .dropdown-menu {
+    max-width: 35%;
+  }
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  top: 30px;
+}
+
+.dropdown-menu {
+  max-width: 35%;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+s,
+strike {
+  text-decoration: none;
+  position: relative;
+}
+s::before,
+strike::before {
+  top: 50%; /*tweak this to adjust the vertical position if it's off a bit due to your font family */
+  background: red; /*this is the color of the line*/
+  opacity: 0.7;
+  content: '';
+  width: 110%;
+  position: absolute;
+  height: 0.1em;
+  border-radius: 0.1em;
+  left: -5%;
+  white-space: nowrap;
+  display: block;
+  transform: rotate(-15deg);
+}
+s.straight::before,
+strike.straight::before {
+  transform: rotate(0deg);
+  left: -1%;
+  width: 102%;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #ff623b transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

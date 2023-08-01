@@ -1,0 +1,18 @@
+.brand {
+  font-size: 1.8rem;
+	display: flex;
+	align-items: center;
+}
+
+.nav-margin{
+	margin-left: 0.5rem;
+}
+
+.logo{
+	padding-bottom: 0.1rem;
+	height: 35px;
+}
+
+.btn{
+	font-weight: 500;
+}

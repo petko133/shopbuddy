@@ -1,0 +1,19 @@
+.container {
+  margin-bottom: 2rem;
+}
+
+.row {
+  display: none !important;
+}
+
+@media screen and (max-width: 991px) {
+  .row {
+    display: flex !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .mobile-category {
+    display: none;
+  }
+}

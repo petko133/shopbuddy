@@ -1,0 +1,14 @@
+.background{
+	padding: 3rem 0;
+	color: #e7e7e7;
+	background-color: rgb(34, 34, 34);
+}
+
+.li-item{
+	list-style-type: none
+}
+
+.li-item a{
+	color: #e7e7e7;
+	text-decoration: none;
+}
