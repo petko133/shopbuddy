@@ -1,13 +1,14 @@
 .container {
-  text-align: center;
-  margin: 2rem auto;
+  margin: auto;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
 }
 
 .counter {
   font-size: large;
   font-weight: 500;
   position: absolute;
-  top: 864px;
+  top: 1045px;
 }
 
 @media screen and (max-width: 992px) {
@@ -17,9 +18,15 @@
     position: absolute;
     top: 935px;
   }
+  .container {
+    margin-top: 3rem;
+  }
 }
 
 @media screen and (max-width: 440px) {
+  .container {
+    margin-top: 3rem;
+  }
   .counter {
     font-size: large;
     font-weight: 500;

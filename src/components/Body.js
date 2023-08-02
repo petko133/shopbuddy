@@ -4,14 +4,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import classes from './Body.module.css';
 import Items from './Items';
-import { useContext } from 'react';
 import ShopContext from '../store/shop-context';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useMemo, useEffect, useContext, useRef } from 'react';
 import Filter from './Filter';
 import Categories from './Categories';
 import { Button } from 'react-bootstrap';
-import { useMemo } from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 const itemsPerLoad = 9;
 
@@ -64,6 +62,21 @@ const Body = () => {
   const [selectedPrice, setSelectedPrice] = useState('');
   const [rating, setRating] = useState(0);
   const [openFilter, setOpenFilter] = useState('');
+
+  //ANIMATIONS
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const filterControls = useAnimation();
+  const itemsControl = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      filterControls.start('visible');
+      itemsControl.start('visible');
+    }
+  }, [isInView]);
+
   // LOAD MORE //
   const handleLoadMore = () => {
     setLoadMore(loadMore + itemsPerLoad);
@@ -162,75 +175,95 @@ const Body = () => {
   }, [category]);
 
   return (
-    <Container className="pt-5 mt-5">
+    <Container className={`pt-5 ${classes.container}`}>
       <Row>
-        <Col lg={3}>
-          <Filter
-            items={items}
-            currentItems={currentItems}
-            selectedBrands={selectedBrands}
-            setSelectedBrands={setSelectedBrands}
-            selectedPrice={selectedPrice}
-            setSelectedPrice={setSelectedPrice}
-            setRating={setRating}
-            category={category}
-          />
+        <Col ref={ref} lg={3}>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 75 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            initial="hidden"
+            animate={filterControls}
+            transition={{ duration: 1, delay: 0.25 }}
+          >
+            <Filter
+              items={items}
+              currentItems={currentItems}
+              selectedBrands={selectedBrands}
+              setSelectedBrands={setSelectedBrands}
+              selectedPrice={selectedPrice}
+              setSelectedPrice={setSelectedPrice}
+              setRating={setRating}
+              category={category}
+            />
+          </motion.div>
         </Col>
         <Col lg={9}>
-          <Row>
-            <Container>
-              <Categories
-                setOpenFilter={setOpenFilter}
-                openFilter={openFilter}
-                Filter={<Filter />}
-                items={items}
-                currentItems={currentItems}
-                setSelectedBrands={setSelectedBrands}
-                selectedPrice={selectedPrice}
-                setSelectedPrice={setSelectedPrice}
-                setCategory={setCategory}
-                activeSort={sort}
-                setActiveSort={setSort}
-                handleChange={handleChange}
-                setRating={setRating}
-                category={category}
-              />
-            </Container>
-            {filteredItems?.length > 0 ? (
-              <p className={classes.counter}>
-                Products: {counter} / {filteredItems?.length}
-              </p>
-            ) : (
-              <p className={classes.counter}>Products: 0 / 0</p>
-            )}
-
-            {loading ? (
-              <Container className="text-center">
-                <div className="lds-ring">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 75 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            initial="hidden"
+            animate={filterControls}
+            transition={{ duration: 1, delay: 0.25 }}
+          >
+            <Row>
+              <Container>
+                <Categories
+                  setOpenFilter={setOpenFilter}
+                  openFilter={openFilter}
+                  Filter={<Filter />}
+                  items={items}
+                  currentItems={currentItems}
+                  setSelectedBrands={setSelectedBrands}
+                  selectedPrice={selectedPrice}
+                  setSelectedPrice={setSelectedPrice}
+                  setCategory={setCategory}
+                  activeSort={sort}
+                  setActiveSort={setSort}
+                  handleChange={handleChange}
+                  setRating={setRating}
+                  category={category}
+                />
               </Container>
-            ) : filteredItems?.length > 0 ? (
-              filteredItems?.slice(0, loadMore).map((item, index) => {
-                return (
-                  <Items
-                    setCounter={setCounter}
-                    key={item.id}
-                    item={item}
-                    index={index}
-                  />
-                );
-              })
-            ) : (filteredItems?.length === 0 && selectedBrands.length > 0) ||
-              (filteredItems?.length === 0 && selectedPrice) ? (
-              <h1>No items found</h1>
-            ) : (
-              ''
-            )}
-          </Row>
+              {filteredItems?.length > 0 ? (
+                <p className={classes.counter}>
+                  Products: {counter} / {filteredItems?.length}
+                </p>
+              ) : (
+                <p className={classes.counter}>Products: 0 / 0</p>
+              )}
+
+              {loading ? (
+                <Container className="text-center">
+                  <div className="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </Container>
+              ) : filteredItems?.length > 0 ? (
+                filteredItems?.slice(0, loadMore).map((item, index) => {
+                  return (
+                    <Items
+                      setCounter={setCounter}
+                      key={item.id}
+                      item={item}
+                      index={index}
+                    />
+                  );
+                })
+              ) : (filteredItems?.length === 0 && selectedBrands.length > 0) ||
+                (filteredItems?.length === 0 && selectedPrice) ? (
+                <h1>No items found</h1>
+              ) : (
+                ''
+              )}
+            </Row>
+          </motion.div>
           <Container className={classes.container}>
             {filteredItems?.length >= loadMore && !loading ? (
               <Button onClick={handleLoadMore} className={classes.button}>

@@ -1,6 +1,6 @@
 .background {
   padding-top: 10rem;
-  min-height: 700px;
+  min-height: 850px;
   background-image: url('../assets/images/banner.jpg');
   background-size: cover;
   position: relative;
@@ -8,15 +8,10 @@
   background-repeat: no-repeat;
   background-position: 50%;
 }
-
-@media screen and (max-width: 440px) {
-  .background {
-    min-height: 500px;
-    background-position: 70%;
-  }
-  .container {
-    margin-top: -2rem !important;
-  }
+.container {
+  margin-top: 10rem;
+  margin-left: 12rem;
+  max-width: 80%;
 }
 
 @media screen and (max-width: 992px) {
@@ -26,11 +21,19 @@
   }
   .container {
     margin-top: -2rem !important;
+    margin-left: 2rem;
+    max-width: 80%;
   }
 }
-
-.container {
-  margin-top: 3rem;
+@media screen and (max-width: 440px) {
+  .background {
+    min-height: 500px;
+    background-position: 70%;
+  }
+  .container {
+    margin-top: -2rem !important;
+    margin-left: 0;
+  }
 }
 
 .button {
