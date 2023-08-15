@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Filter.module.css';
-import { Button, Collapse, Container, Form, InputGroup } from 'react-bootstrap';
+import { Button, Collapse, Container, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { FaRegWindowClose } from 'react-icons/fa';
